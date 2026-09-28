@@ -1,0 +1,23 @@
+{
+  "name": "linear-mcp",
+  "version": "1.0.0",
+  "description": "Linear MCP Server for standardized Task and Project creation",
+  "main": "build/index.js",
+  "type": "module",
+  "bin": {
+    "linear-mcp": "./build/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "start": "node build/index.js"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.1",
+    "dotenv": "^16.4.5"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.0.0"
+  }
+}
