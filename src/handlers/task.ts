@@ -24,7 +24,7 @@ export async function createStandardTask(params: {
 
   const labelIds = [];
   if (labelNames && labelNames.length > 0) {
-    const labelsQuery = `query { issueLabels(filter: {team: {id: {eq: "${teamId}"}}}) { nodes { id name } } }`;
+    const labelsQuery = `query { issueLabels(first: 250) { nodes { id name } } }`;
     const labelsData = await linearGraphQL(labelsQuery);
     for (const labelName of labelNames) {
       const found = labelsData.issueLabels.nodes.find((l: any) => l.name.toLowerCase() === labelName.toLowerCase());

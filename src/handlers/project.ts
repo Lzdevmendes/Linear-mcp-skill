@@ -16,7 +16,7 @@ export async function createProjectWithLabels(teamId: string, name: string, desc
   }`;
   const projectData = await linearGraphQL(projectMutation, { name, description, teamId });
 
-  const labelsQuery = `query { issueLabels(filter: {team: {id: {eq: "${teamId}"}}}) { nodes { id name } } }`;
+  const labelsQuery = `query { issueLabels(first: 250) { nodes { id name } } }`;
   const labelsData = await linearGraphQL(labelsQuery);
   const existingLabelNames = labelsData.issueLabels.nodes.map((l: any) => l.name.toLowerCase());
 
