@@ -24,8 +24,12 @@ export async function createProjectWithLabels(teamId: string, name: string, desc
   for (const stdLabel of STANDARD_LABELS) {
     if (!existingLabelNames.includes(stdLabel.name.toLowerCase())) {
       const labelMutation = `mutation { issueLabelCreate(input: {name: "${stdLabel.name}", color: "${stdLabel.color}", teamId: "${teamId}"}) { issueLabel { id name } } }`;
-      await linearGraphQL(labelMutation);
-      createdLabels.push(stdLabel.name);
+      try {
+        await linearGraphQL(labelMutation);
+        createdLabels.push(stdLabel.name);
+      } catch (error) {
+        console.error(`Skipping label ${stdLabel.name}, it might already exist globally:`, error);
+      }
     }
   }
 
