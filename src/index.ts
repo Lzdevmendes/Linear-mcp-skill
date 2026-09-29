@@ -34,7 +34,8 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
           properties: {
             teamId: { type: "string", description: "The ID of the team" },
             name: { type: "string", description: "Project name" },
-            description: { type: "string", description: "Project description" }
+            description: { type: "string", description: "Project description" },
+            projectPath: { type: "string", description: "Absolute path to the local project folder (to read README.md for the Overview content)" }
           },
           required: ["teamId", "name"]
         }
@@ -68,8 +69,8 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
     }
 
     if (request.params.name === "linear_create_project") {
-      const { teamId, name, description } = request.params.arguments as any;
-      const result = await createProjectWithLabels(teamId, name, description);
+      const { teamId, name, description, projectPath } = request.params.arguments as any;
+      const result = await createProjectWithLabels(teamId, name, description, projectPath);
       return {
         content: [{ 
           type: "text", 
